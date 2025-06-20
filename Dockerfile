@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM --platform=linux/amd64 ubuntu:22.04
+FROM ubuntu:22.04
 
 # 환경변수 설정
 ENV DEBIAN_FRONTEND=noninteractive
