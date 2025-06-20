@@ -23,7 +23,7 @@ RUN mkdir -p ${ANDROID_HOME}/cmdline-tools && \
     mv cmdline-tools latest
 
 # SDK 필수 구성 요소 설치
-RUN yes | sdkmanager --licenses && \
+RUN yes | sdkmanager --licenses
 
 # Gradle 설치
 RUN wget https://services.gradle.org/distributions/gradle-8.6-bin.zip -O /tmp/gradle.zip && \
