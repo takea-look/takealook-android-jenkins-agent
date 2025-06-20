@@ -34,6 +34,9 @@ RUN wget https://services.gradle.org/distributions/gradle-8.6-bin.zip -O /tmp/gr
 # Jenkins 에이전트용 디렉토리 생성
 RUN useradd -m -d /home/jenkins jenkins && echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 
+# 엔트로피 생성을 위한 haveged 설치
+RUN apt-get update && apt-get install -y haveged
+
 USER jenkins
 WORKDIR /home/jenkins
 
