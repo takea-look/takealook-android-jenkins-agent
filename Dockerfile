@@ -23,13 +23,7 @@ RUN mkdir -p ${ANDROID_HOME}/cmdline-tools && \
     mv cmdline-tools latest
 
 # SDK 필수 구성 요소 설치
-RUN yes | sdkmanager --licenses && \
-
-# Gradle 설치
-RUN wget https://services.gradle.org/distributions/gradle-8.6-bin.zip -O /tmp/gradle.zip && \
-    unzip /tmp/gradle.zip -d /opt/ && \
-    ln -s /opt/gradle-8.6/bin/gradle /usr/bin/gradle && \
-    rm /tmp/gradle.zip
+RUN yes | sdkmanager --licenses
 
 # Jenkins 에이전트용 디렉토리 생성
 RUN useradd -m -d /home/jenkins jenkins && echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
