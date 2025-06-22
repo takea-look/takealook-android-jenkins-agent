@@ -6,6 +6,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV ANDROID_HOME=/opt/android-sdk
 ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator
 
+# 필수 패키지 설치
+RUN apt-get update && apt-get install -y \
+    curl unzip git wget sudo \
+    && rm -rf /var/lib/apt/lists/*
+
 # Temurin JDK 17 설치
 RUN mkdir -p /opt/java && \
     curl -L -o /tmp/temurin.tar.gz https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11+9/OpenJDK17U-jdk_x64_linux_hotspot_17.0.11_9.tar.gz && \
