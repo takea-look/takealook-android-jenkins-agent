@@ -11,7 +11,7 @@ ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-too
 RUN apt-get update && apt-get install -y \
     curl unzip git wget sudo \
     lib32stdc++6 lib32z1 ca-certificates \
-    && update-ca-certificates \ # 인증서 목록 업데이트 추가
+    && update-ca-certificates \ 
     && rm -rf /var/lib/apt/lists/*
 
 # Temurin JDK 17 설치 (aarch64 용으로 URL 변경)
