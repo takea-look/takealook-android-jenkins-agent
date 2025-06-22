@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 
 # Temurin JDK 17 설치 (aarch64 용으로 URL 변경)
 RUN mkdir -p /opt/java && \
-    curl -L -o /tmp/temurin.tar.gz https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11+9/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.11_9.tar.gz && \
+    curl -L -o /tmp/temurin.tar.gz https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11+9/OpenJDK17U-jdk_x64_linux_hotspot_17.0.11_9.tar.gz && \
     tar -xzf /tmp/temurin.tar.gz -C /opt/java --strip-components=1 && \
     rm /tmp/temurin.tar.gz
 
