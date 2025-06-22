@@ -10,7 +10,6 @@ ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-too
 # 필수 패키지 설치
 RUN apt-get update && apt-get install -y \
     curl unzip git wget sudo \
-    lib32stdc++6 lib32z1 ca-certificates \
     && update-ca-certificates \ 
     && rm -rf /var/lib/apt/lists/*
 
