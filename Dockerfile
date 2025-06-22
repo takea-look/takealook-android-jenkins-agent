@@ -15,15 +15,24 @@ RUN apt-get update && apt-get install -y \
 # Java 환경변수 설정
 ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
 
+# ca-certificates 명시적 설치
+RUN apt-get update && apt-get install -y \
+    curl unzip git openjdk-17-jdk wget sudo \
+    lib32stdc++6 lib32z1 ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Java TLS 환경변수 설정
+ENV JAVA_TOOL_OPTIONS="-Djdk.tls.client.protocols=TLSv1.2"
+
 # Android SDK 설치
 RUN mkdir -p ${ANDROID_HOME}/cmdline-tools && \
     cd ${ANDROID_HOME}/cmdline-tools && \
     wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip && \
-    unzip cmdline-tools.zip && rm cmdline-tools.zip && \
-    mv cmdline-tools latest
+    unzip cmdline-tools.zip -d cmdline-tools && rm cmdline-tools.zip && \
+    mv cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest
 
-# SDK 필수 구성 요소 설치
-RUN yes | sdkmanager --licenses
+# sdkmanager
+RUN yes | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --licenses
 
 # Gradle 설치
 RUN wget https://services.gradle.org/distributions/gradle-8.6-bin.zip -O /tmp/gradle.zip && \
