@@ -17,6 +17,9 @@ RUN apt-get update && apt-get install -y \
     && update-ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
+# Install necessary dependencies
+RUN apt-get update && apt-get install -y libc6
+
 # Temurin JDK 17 설치 (aarch64 용으로 URL 변경)
 RUN mkdir -p /opt/java && \
     curl -L -o /tmp/temurin.tar.gz https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11+9/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.11_9.tar.gz && \
