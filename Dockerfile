@@ -33,7 +33,7 @@ RUN mkdir -p ${ANDROID_HOME}/cmdline-tools && \
     rm cmdline-tools.zip
     
 # sdkmanager
-RUN yes | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --licenses
+RUN yes | sdkmanager --licenses
 
 # Gradle 설치
 RUN wget https://services.gradle.org/distributions/gradle-8.6-bin.zip -O /tmp/gradle.zip && \
