@@ -10,7 +10,11 @@ ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-too
 # 필수 패키지 설치
 RUN apt-get update && apt-get install -y \
     curl unzip git wget sudo \
-    && update-ca-certificates \ 
+    ca-certificates \
+    # AAPT2 실행에 필요한 공유 라이브러리 추가
+    libc++1 \
+    zlib1g \
+    && update-ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
 # Temurin JDK 17 설치 (aarch64 용으로 URL 변경)
