@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM ubuntu:latest
+FROM --platform=linux/amd64 ubuntu:22.04
 
 # 환경변수 설정
 ENV DEBIAN_FRONTEND=noninteractive
@@ -23,7 +23,7 @@ RUN mkdir -p ${ANDROID_HOME}/cmdline-tools && \
     mv cmdline-tools latest
 
 # SDK 필수 구성 요소 설치
-RUN yes | sdkmanager --licenses
+RUN yes | sdkmanager --licenses && \
 
 # Gradle 설치
 RUN wget https://services.gradle.org/distributions/gradle-8.6-bin.zip -O /tmp/gradle.zip && \
@@ -33,9 +33,6 @@ RUN wget https://services.gradle.org/distributions/gradle-8.6-bin.zip -O /tmp/gr
 
 # Jenkins 에이전트용 디렉토리 생성
 RUN useradd -m -d /home/jenkins jenkins && echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
-
-# 엔트로피 생성을 위한 haveged 설치
-RUN apt-get update && apt-get install -y haveged
 
 USER jenkins
 WORKDIR /home/jenkins
