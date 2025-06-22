@@ -28,9 +28,10 @@ ENV JAVA_TOOL_OPTIONS="-Djdk.tls.client.protocols=TLSv1.2"
 RUN mkdir -p ${ANDROID_HOME}/cmdline-tools && \
     cd ${ANDROID_HOME}/cmdline-tools && \
     wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip && \
-    unzip cmdline-tools.zip -d cmdline-tools && rm cmdline-tools.zip && \
-    mv cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest
-
+    unzip cmdline-tools.zip -d tmp && \
+    mv tmp ${ANDROID_HOME}/cmdline-tools/latest && \
+    rm cmdline-tools.zip
+    
 # sdkmanager
 RUN yes | ${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager --licenses
 
