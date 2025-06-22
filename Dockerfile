@@ -6,11 +6,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV ANDROID_HOME=/opt/android-sdk
 ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator
 
-# 기본 패키지 설치 
-RUN apt-get update && apt-get install -y \
-    curl unzip git wget sudo \
-    && rm -rf /var/lib/apt/lists/*
-
 # Temurin JDK 17 설치
 RUN mkdir -p /opt/java && \
     curl -L -o /tmp/temurin.tar.gz https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11+9/OpenJDK17U-jdk_x64_linux_hotspot_17.0.11_9.tar.gz && \
@@ -21,18 +16,14 @@ RUN mkdir -p /opt/java && \
 ENV JAVA_HOME=/opt/java
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
-# Java TLS 환경변수 설정
-ENV JAVA_TOOL_OPTIONS="-Djdk.tls.client.protocols=TLSv1.2"
-
 # Android SDK 설치
 RUN mkdir -p ${ANDROID_HOME}/cmdline-tools && \
     cd ${ANDROID_HOME}/cmdline-tools && \
     wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip && \
-    unzip cmdline-tools.zip -d tmp && \
-    mv tmp ${ANDROID_HOME}/cmdline-tools/latest && \
-    rm cmdline-tools.zip
-    
-# sdkmanager
+    unzip cmdline-tools.zip && rm cmdline-tools.zip && \
+    mv cmdline-tools latest
+
+# SDK 필수 구성 요소 설치
 RUN yes | sdkmanager --licenses
 
 # Gradle 설치
